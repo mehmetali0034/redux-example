@@ -1,4 +1,11 @@
-import { Box, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Badge from "@mui/material/Badge";
@@ -6,8 +13,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useSelector } from "react-redux";
 export default function NavBarr() {
   const { cartItems } = useSelector((store) => store.cart);
-  const {favoriteItems} =useSelector((store)=>store.fav);
-  console.log(favoriteItems)
+  const { favoriteItems } = useSelector((store) => store.fav);
+  console.log(favoriteItems);
   const getTotalProduct = (cartItems) => {
     let toplam = 0;
     cartItems.forEach((item) => {
@@ -16,8 +23,8 @@ export default function NavBarr() {
     return toplam;
   };
   const TotalProduct = getTotalProduct(cartItems);
-console.log(cartItems)
-  const [anchorEl, setAnchorEl] =useState(null);
+  console.log(cartItems);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClickCart = (event) => {
     setAnchorEl(event.currentTarget);
@@ -36,31 +43,35 @@ console.log(cartItems)
           </Box>
           <Box>
             <Badge badgeContent={TotalProduct} showZero color="primary">
-              <IconButton 
-              onClick={handleClickCart}>
+              <IconButton onClick={handleClickCart}>
                 <ShoppingCartIcon />
               </IconButton>
             </Badge>
-            <Box>
-              <Menu
-                      anchorEl={anchorEl}
-                      id="account-menu"
-                      open={open}
-                      onClose={handleClose}
-                      onClick={handleClose}>
-                        <Typography sx={{textAlign:"center"}} borderBottom={2}>
-                          Sepetim({TotalProduct})
-                        </Typography>
-                      {cartItems.map((item)=>(
-                        <MenuItem key={item.id}>
-                        Ürün {item.id} ({item.quantity})
-                        </MenuItem>
-                      ))}
-                         <Typography borderTop={2} sx={{textAlign:"center"}} borderBottom={2}>
-                          Favorilerim({favoriteItems.length})
-                        </Typography>
-              </Menu>
-            </Box>
+            <Menu
+              anchorEl={anchorEl}
+              id="account-menu"
+              open={open}
+              onClose={handleClose}
+              onClick={handleClose}
+            >
+              <MenuItem>
+                <Typography sx={{ textAlign: "center" }} borderBottom={2}>
+                  Sepetim({TotalProduct})
+                </Typography>
+              </MenuItem>
+              {cartItems.map((item) => (
+                <MenuItem key={item.id}>
+                  Ürün {item.id} ({item.quantity})
+                </MenuItem>
+              ))}
+              <Typography
+                borderTop={2}
+                sx={{ textAlign: "center" }}
+                borderBottom={2}
+              >
+                Favorilerim({favoriteItems.length})
+              </Typography>
+            </Menu>
           </Box>
         </Toolbar>
       </AppBar>
